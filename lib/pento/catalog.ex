@@ -21,6 +21,11 @@ defmodule Pento.Catalog do
     Repo.all(Product)
   end
 
+  def list_products_with_user_rating(user) do
+    Product.Query.with_user_ratings(user)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single product.
 
@@ -54,6 +59,14 @@ defmodule Pento.Catalog do
     |> Product.changeset(attrs)
     |> Repo.insert()
   end
+
+
+  # def markdown_product(%Product{} = product, oper, amount \\ 0) do
+  #   product
+  #   |> Product.changeset()
+  #   |> Product.price_changeset(oper, amount)
+  #   |> Repo.update()
+  # end
 
   @doc """
   Updates a product.
@@ -102,10 +115,4 @@ defmodule Pento.Catalog do
     Product.changeset(product, attrs)
   end
 
-  def markdown_product(%Product{} = product, oper, amount \\ 0) do
-    product
-    |> Product.changeset()
-    |> Product.price_changeset(oper, amount)
-    |> Repo.update()
-  end
 end
