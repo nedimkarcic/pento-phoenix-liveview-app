@@ -1,4 +1,3 @@
-
 defmodule PentoWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :pento
 
@@ -8,7 +7,7 @@ defmodule PentoWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_pento_key",
-    signing_salt: "hnEi8Lo1"
+    signing_salt: "wEJQlklP"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
