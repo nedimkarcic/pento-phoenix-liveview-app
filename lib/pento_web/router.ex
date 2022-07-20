@@ -95,6 +95,8 @@ defmodule PentoWeb.Router do
     live "/promo", PromoLive
     live "/survey", SurveyLive, :index
 
+    live "/admin-dashboard", Admin.DashboardLive
+
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new
     live "/products/:id/edit", ProductLive.Index, :edit
@@ -109,6 +111,8 @@ defmodule PentoWeb.Router do
 
   scope "/", PentoWeb do
     pipe_through [:browser]
+
+    live "/game/:puzzle", Pento.GameLive
 
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new
