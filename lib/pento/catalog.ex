@@ -60,14 +60,6 @@ defmodule Pento.Catalog do
     |> Repo.insert()
   end
 
-
-  # def markdown_product(%Product{} = product, oper, amount \\ 0) do
-  #   product
-  #   |> Product.changeset()
-  #   |> Product.price_changeset(oper, amount)
-  #   |> Repo.update()
-  # end
-
   @doc """
   Updates a product.
 
@@ -113,6 +105,28 @@ defmodule Pento.Catalog do
   """
   def change_product(%Product{} = product, attrs \\ %{}) do
     Product.changeset(product, attrs)
+  end
+
+  def products_with_average_ratings do
+    Product.Query.with_average_ratings()
+    |> Repo.all()
+  end
+
+  def products_with_average_ratings(%{
+        age_group_filter: age_group_filter,
+        gender_filter: gender_filter
+      }) do
+    Product.Query.with_average_ratings()
+    |> Product.Query.join_users()
+    |> Product.Query.join_demographics()
+    |> Product.Query.filter_by_age_group(age_group_filter)
+    |> Product.Query.filter_by_gender(gender_filter)
+    |> Repo.all()
+  end
+
+  def products_with_zero_ratings do
+    Product.Query.with_zero_ratings()
+    |> Repo.all()
   end
 
 end
