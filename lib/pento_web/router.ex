@@ -57,12 +57,6 @@ defmodule PentoWeb.Router do
     end
   end
 
-  #this made me a problem when I had an error that I asked question for
-  # live_session :default, on_mount:
-  # PentoWeb.UserAuthLive do
-  #   live "/survey", SurveyLive, :index
-  # end
-
   ## Authentication routes
 
   # scope "/", PentoWeb do
@@ -93,18 +87,19 @@ defmodule PentoWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :default, on_mount: PentoWeb.UserAuthLive do
-    live "/guess", WrongLive
-    live "/promo", PromoLive
-    live "/survey", SurveyLive, :index
+      live "/home", HomeLive, :index
+      live "/guess", WrongLive
+      live "/promo", PromoLive
+      live "/survey", SurveyLive, :index
 
-    live "/admin-dashboard", Admin.DashboardLive
+      live "/admin-dashboard", Admin.DashboardLive, :index
 
-    live "/products", ProductLive.Index, :index
-    live "/products/new", ProductLive.Index, :new
-    live "/products/:id/edit", ProductLive.Index, :edit
+      live "/products", ProductLive.Index, :index
+      live "/products/new", ProductLive.Index, :new
+      live "/products/:id/edit", ProductLive.Index, :edit
 
-    live "/products/:id", ProductLive.Show, :show
-    live "/products/:id/show/edit", ProductLive.Show, :edit
+      live "/products/:id", ProductLive.Show, :show
+      live "/products/:id/show/edit", ProductLive.Show, :edit
     end
 
     get "/users/settings", UserSettingsController, :edit

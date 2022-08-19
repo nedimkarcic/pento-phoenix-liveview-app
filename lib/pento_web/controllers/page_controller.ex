@@ -3,7 +3,7 @@ defmodule PentoWeb.PageController do
 
   def index(conn, _params) do
     if conn.assigns.current_user do
-      redirect(conn, to: "/guess")
+      redirect(conn, to: "/home")
     else
     render(conn, "index.html")
     end
