@@ -21,8 +21,8 @@ defmodule Pento.Catalog.Product.Query do
 
   def with_average_ratings(query \\ base()) do
     query
-    |> join_ratings
-    |> average_ratings
+    |> join_ratings()
+    |> average_ratings()
   end
 
   defp join_ratings(query) do
