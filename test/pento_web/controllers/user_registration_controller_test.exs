@@ -14,7 +14,7 @@ defmodule PentoWeb.UserRegistrationControllerTest do
 
     test "redirects if already logged in", %{conn: conn} do
       conn = conn |> log_in_user(user_fixture()) |> get(Routes.user_registration_path(conn, :new))
-      assert redirected_to(conn) == "/guess"
+      assert redirected_to(conn) == "/home"
     end
   end
 
@@ -30,14 +30,14 @@ defmodule PentoWeb.UserRegistrationControllerTest do
         })
 
       assert get_session(conn, :user_token)
-      assert redirected_to(conn) == "/guess"
+      assert redirected_to(conn) == "/home"
 
-      # A request for "/" redirects to "/guess"
+      # A request for "/" redirects to "/home"
       conn = get(conn, "/")
-      assert redirected_to(conn) =~ "/guess"
+      assert redirected_to(conn) =~ "/home"
 
       # Now do a logged in request and assert on the menu
-      conn = get(conn, "/guess")
+      conn = get(conn, "/home")
       response = html_response(conn, 200)
       assert response =~ username
       assert response =~ "Settings</a>"
