@@ -10,15 +10,15 @@ defmodule Pento.Catalog.Product do
     field :unit_price, :float
     field :image_upload, :string
     timestamps()
-    has_many :ratings, Rating
+    has_many :ratings, Pento.Survey.Rating
   end
 
   @doc false
-  def changeset(product, attrs \\ %{}) do
+  def changeset(product, attrs) do
     product
     |> cast(attrs, [:name, :description, :unit_price, :sku, :image_upload])
     |> validate_required([:name, :description, :unit_price, :sku])
+    |> validate_number(:unit_price, greater_than: 0)
     |> unique_constraint(:sku)
-    |> validate_number(:unit_price, greater_than: 0.0)
   end
 end
